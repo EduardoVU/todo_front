@@ -34,7 +34,7 @@ export const useLoginStore = defineStore('loginStore', () => {
     } catch (error: any) {
       return {
         success: false,
-        message: error.message || 'Error al hacer login',
+        message: error.detail || 'Error al hacer login',
         status: error.status || 500,
       };
     }
@@ -50,10 +50,26 @@ export const useLoginStore = defineStore('loginStore', () => {
     } catch (error: any) {
       return {
         success: false,
-        message: error.message || 'Error al crear usuario',
+        message: error.detail || 'Error al crear usuario',
         status: error.status || 500,
       };
     }
   }
-  return { loginLgn, authLgn, addItemLgn }
+
+  const logoutLgn = async () => {
+    const headers = { 'Content-Type': 'application/json' };
+
+    try {
+      const response = await api.logout(headers);
+      if (!response.data) throw response;
+      return response.data;
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.detail || 'Error al cerrar sesión',
+        status: error.status || 500,
+      };
+    }
+  }
+  return { loginLgn, authLgn, addItemLgn, logoutLgn }
 })

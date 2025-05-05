@@ -11,7 +11,7 @@ export default defineConfig({
     vueDevTools(),
   ],
   server: {
-    port: 8080 // <-- Aquí defines el puerto
+    port: 8080
   },
   css: {
     preprocessorOptions: {

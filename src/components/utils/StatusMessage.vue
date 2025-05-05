@@ -34,6 +34,8 @@ div {
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
+    justify-self: center;
+
     gap: 0 0.313rem;
 }
 
@@ -48,7 +50,7 @@ div svg path {
 
 p {
     color: var(--textStatus);
-    font-family: "DM Sans";
+    font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 700;
 

@@ -35,6 +35,10 @@ export default {
     return axios.post("/login", data.toString(), { headers });;
   },
 
+  logout(headers: Headers): Promise<AxiosResponse<ApiResponse>> {
+    return axios.post("/logout", null, { headers });
+  },
+
   // Resend Code
   resendCode(headers: Headers): Promise<AxiosResponse<ApiResponse>> {
     return axios.post(`/resend-code`, {}, { headers });

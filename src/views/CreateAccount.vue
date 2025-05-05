@@ -24,21 +24,22 @@ const statusState = reactive({
 
 const submitData = async () => {
     try {
-        console.log("user")
-        console.log(user)
         const response = await loginStore.addItemLgn({
             option: 'users',
             item: user
         });
 
-        console.log("response")
-        console.log(response)
-
         if (!response || response.success === false) throw response;
 
         router.push('/');
     } catch (error) {
-        console.log('error', error);
+        statusState.status = 'error';
+
+        if (error && typeof error === 'object' && 'message' in error) {
+            statusState.message = (error as { message: string }).message;
+        } else {
+            statusState.message = 'Ha ocurrido un error desconocido';
+        }
     }
 };
 </script>
@@ -54,7 +55,7 @@ const submitData = async () => {
 
             <fieldset>
                 <label for="lastName">Apellido</label>
-                <input type="text" id="lastNname" name="lastNname" placeholder="Apellido" v-model="user.last_name" />
+                <input type="text" id="lastName " name="lastName " placeholder="Apellido" v-model="user.last_name" />
             </fieldset>
 
             <fieldset>
@@ -75,47 +76,90 @@ const submitData = async () => {
     </main>
 </template>
 <style scoped lang="scss">
+input:-webkit-autofill {
+  -webkit-text-fill-color: #000 !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #ffffff;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
 main {
     display: grid;
     place-items: center;
     min-height: 100vh;
-    background-color: #EFEFEF;
+    background-image: linear-gradient(to right, #f5f7fa, #c3cfe2);
+    font-family: 'Inter', sans-serif;
+
+    padding: 1rem;
 }
 
 h1 {
     text-align: center;
-    margin: 1rem 0;
+    color: #333;
+
     font-size: 2rem;
+    margin-bottom: 1rem;
 }
 
 form {
     display: grid;
     background: #FFF;
 
-    width: min(100%, 25rem);
-    padding: .9375rem;
-    border-radius: .625rem;
-    box-shadow: .0625rem .3125rem .75rem 0 rgba(0, 0, 0, 0.09);
-    gap: .625rem;
+    width: min(100%, 26rem);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 .625rem 1.5625rem rgba(0, 0, 0, 0.1);
+    gap: 1rem;
 }
 
 fieldset {
     display: grid;
     padding: 0;
-    border: 0;
-    justify-items: start;
+    border: none;
 
-    gap: .625rem;
+    gap: 0.5rem;
+}
+
+label {
+    font-weight: 500;
+    color: #444;
+    font-size: 0.9rem;
 }
 
 input {
     width: 100%;
-    padding: .1875rem .625rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    outline: none;
+
+    &:focus {
+        border-color: #6366f1;
+        box-shadow: 0 0 0 .1875rem rgba(99, 102, 241, 0.3);
+    }
 }
 
 button {
-    padding: .5rem 1rem;
-    margin: 1rem auto 0;
+    padding: 0.75rem 1rem;
+    background-color: #6366f1;
+    color: #fff;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    margin-top: 1rem;
+
+    &:hover {
+        background-color: #4f46e5;
+    }
 }
 
 .status-inside {
