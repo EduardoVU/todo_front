@@ -2,6 +2,7 @@
 import { useHistoryStore } from '@/stores/History';
 import { computed } from 'vue';
 import BenefactorFormEdit from '../BenefactorComponents/BenefactorFormEdit.vue';
+import AllHomeworks from '../HomeworksComponents/AllHomeworks.vue';
 
 const historyStore = useHistoryStore();
 const historyOption = computed(() => historyStore.historyOption);
@@ -11,9 +12,8 @@ const historyOption = computed(() => historyStore.historyOption);
 
 <template>
     <section>
-        <template v-if="historyOption === 'mi perfil'">
-            <BenefactorFormEdit />
-        </template>
+        <AllHomeworks v-if="historyOption === 'Default'"/>
+        <BenefactorFormEdit v-if="historyOption === 'mi perfil'" />
     </section>
 </template>
 

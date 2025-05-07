@@ -1,12 +1,23 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUserStore } from '@/stores/Users';
+import { computed } from 'vue';
+const userStore = useUserStore();
+
+const identity = computed(() => userStore.user);
+
+</script>
 <template>
     <main class="hero">
         <div class="hero-content">
             <h1>Organiza tu día con <span>TodoAPP</span></h1>
-            <p>Gestiona tus tareas de forma sencilla, rápida y desde cualquier lugar.</p>
+            <p>{{ identity?.id ? `¡Hola,
+                ${identity?.name}! Un gusto que hayas regresado` : 'Gestiona tus tareas de forma sencilla, rápida y desde cualquier lugar' }}.</p>
             <div class="hero-buttons">
-                <router-link to="/registro" class="btn-primary">Comienza ahora</router-link>
-                <router-link to="/login" class="btn-secondary">Ya tengo cuenta</router-link>
+                <template v-if="!identity?.id">
+                    <router-link to="/registro" class="btn-primary">Comienza ahora</router-link>
+                    <router-link to="/login" class="btn-secondary">Ya tengo cuenta</router-link>
+                </template>
+                <router-link v-else to="/administrador" class="btn-primary">Mi cuenta</router-link>
             </div>
         </div>
         <picture class="hero-image">

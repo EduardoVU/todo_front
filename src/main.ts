@@ -6,7 +6,7 @@ import { useUserStore } from '@/stores/Users'
 import axios from 'axios'
 import App from './App.vue'
 import router from './router'
-
+import '@oddbird/popover-polyfill';
 
 const app = createApp(App)
 

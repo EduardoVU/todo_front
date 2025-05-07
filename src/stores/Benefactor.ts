@@ -77,8 +77,6 @@ export const useBenefactorStore = defineStore('benefactorStore', () => {
             return response.data;
 
         } catch (error: any) {
-            console.log("error")
-            console.log(error)
             return {
                 success: false,
                 message: error?.message || 'Error al editar perfil',
@@ -104,5 +102,5 @@ export const useBenefactorStore = defineStore('benefactorStore', () => {
         }
     }
 
-    return { ...toRefs(state), getAllInfoBnf, setData, setAdded, getInfoByIdBnf, addItemBnf, editItemBnf, deleteItemBnf }
+    return { ...toRefs(state), setData, setAdded, getAllInfoBnf, getInfoByIdBnf, addItemBnf, editItemBnf, deleteItemBnf }
 })

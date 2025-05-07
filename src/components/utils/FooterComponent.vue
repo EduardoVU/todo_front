@@ -13,7 +13,7 @@ const year = dayjs().format('YYYY');
       <nav class="footer-nav">
         <router-link to="login">Login</router-link>
         <router-link to="registro">Crea tu cuenta</router-link>
-        <router-link to="administrador">Administrador</router-link>
+        <router-link to="administrador">Mi cuenta</router-link>
         <a href="#contacto">Contáctanos</a>
       </nav>
     </div>

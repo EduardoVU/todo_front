@@ -94,7 +94,7 @@ watch(expanded, () => {
             </div>
         </div>
 
-        <div v-if="identity && identity.role === 'admin'">
+        <!-- <div v-if="identity && identity.role === 'admin'">
             <button @click="setHistory('usuarios')">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                     stroke-linecap="round" stroke-linejoin="round" width="24" height="24" stroke-width="2">
@@ -114,7 +114,7 @@ watch(expanded, () => {
             <div class="info-hover">
                 <p>Usuarios</p>
             </div>
-        </div>
+        </div> -->
     </aside>
 </template>
 <style scoped lang="scss">

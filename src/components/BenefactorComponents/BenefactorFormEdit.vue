@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { useBenefactorStore } from '@/stores/Benefactor';
-import { computed, onMounted, reactive, onBeforeUnmount } from 'vue';
+import { useUserStore } from '@/stores/Users';
+import { computed, onMounted, reactive } from 'vue';
 import statusMessage from '@/components/utils/StatusMessage.vue'
 
 const benefactorStore = useBenefactorStore();
 const benefactorAdded = computed(() => benefactorStore.added);
 const benefactorData = computed(() => benefactorStore.data);
+
+const userStore = useUserStore();
 
 const dataToSubmit = reactive({
     id: undefined as number | undefined,
@@ -39,16 +42,15 @@ const submitForm = async () => {
         });
 
         if (!response.success) throw response;
-        
+
         await getInfo();
+
+        if ('data' in response) userStore.setUser(response.data);
 
         statusState.status = 'success';
         statusState.message = 'Perfil editado con éxito';
 
-
-        setTimeout(() => {
-            clearStatus();
-        }, 5000);
+        setTimeout(() => clearStatus(), 5000);
 
     } catch (error) {
         statusState.status = 'error';
@@ -58,24 +60,18 @@ const submitForm = async () => {
 };
 
 const getInfo = async () => {
-    if (!benefactorAdded) return
+    if (!benefactorAdded.value) return
     await benefactorStore.getInfoByIdBnf({ option: 'users', id: benefactorAdded.value });
     const source = benefactorData.value as Partial<typeof dataToSubmit>;
     Object.assign(dataToSubmit, source);
 }
 
-onBeforeUnmount(() => {
-    benefactorStore.setAdded(null);
-    benefactorStore.setData(null);
-});
-
-onMounted(async () => {
-    await getInfo();
-});
+onMounted(async () => await getInfo());
 
 </script>
 <template>
     <form @submit.prevent="submitForm" class="formulario">
+        <h2>Editar Mi Perfil</h2>
         <fieldset>
             <label for="name">Nombre:</label>
             <input v-model="dataToSubmit.name" type="text" placeholder="Nombre" id="name" />
@@ -93,7 +89,8 @@ onMounted(async () => {
 
         <fieldset>
             <label for="password">Contraseña (opcional):</label>
-            <input v-model="dataToSubmit.password" type="password" placeholder="Nueva contraseña" id="password" />
+            <input v-model="dataToSubmit.password" type="password" placeholder="Nueva contraseña" id="password" autocomplete="new-password"
+            name="new-password" />
         </fieldset>
 
         <button type="submit" class="btn-primary">Guardar cambios</button>
@@ -114,6 +111,11 @@ input:-webkit-autofill:active {
     -webkit-background-clip: text;
     -webkit-text-fill-color: #ffffff;
     transition: background-color 5000s ease-in-out 0s;
+}
+
+h2 {
+    grid-column: 1 / -1;
+    margin: 0;
 }
 
 .formulario {
