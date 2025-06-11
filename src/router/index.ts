@@ -3,7 +3,7 @@ import { validateToken } from '@/auth'
 import { useUserStore } from '@/stores/Users'
 
 import Login from '@/views/Login.vue'
-import Authentication from '@/views/Authentication.vue'
+// import Authentication from '@/views/Authentication.vue'
 import CreateAccount from '@/views/CreateAccount.vue'
 import AdminLayout from '@/views/AdminLayout.vue'
 import Home from '@/views/Home.vue'
