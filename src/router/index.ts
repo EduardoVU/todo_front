@@ -22,13 +22,13 @@ const router = createRouter({
       name: 'login',
       component: Login, 
     },
-    {
-      path: '/auth',
-      name: 'auth',
-      component: Authentication,
-      meta: { logged: true },
+    // {
+    //   path: '/auth',
+    //   name: 'auth',
+    //   component: Authentication,
+    //   meta: { logged: true },
 
-    },
+    // },
     {
       path: '/administrador',
       name: 'administrador',
