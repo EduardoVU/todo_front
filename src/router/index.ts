@@ -33,7 +33,8 @@ const router = createRouter({
       path: '/administrador',
       name: 'administrador',
       component: AdminLayout,
-      meta: { logged: true, authenticated: true },
+      meta: { logged: true,  },
+      //authenticated: true
     },
     {
       path: '/registro',

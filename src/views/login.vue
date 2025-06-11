@@ -39,7 +39,8 @@ const submitData = async () => {
             userStore.setToken(response.access_token)
         }
 
-        router.push('/auth');
+        // router.push('/auth');
+        router.push('/administrador');
     } catch (error) {
         statusState.status = 'error';
 
